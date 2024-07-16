@@ -5,7 +5,7 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 // import session from 'express-session';
 // import csurf from 'csurf';
-import connectDB from "./config/db.connect.js";
+import connectDB from "./config/db.config.js";
 import apiRouter from "./routes/routes.js";
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";

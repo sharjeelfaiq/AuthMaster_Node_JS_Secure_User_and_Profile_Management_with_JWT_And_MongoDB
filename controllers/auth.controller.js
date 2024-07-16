@@ -1,5 +1,5 @@
 import { register, login, logout } from "../services/auth.service.js";
-import { setTokenCookie } from "../utils/utils.js";
+import { setTokenCookie } from "../utils/token.utils.js";
 
 export const registerUser = async (req, res) => {
   try {
