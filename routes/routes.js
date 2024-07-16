@@ -2,7 +2,7 @@ import express from "express";
 import authMiddleware from "../middlewares/auth.middleware.js";
 import userRoutes from "./user.routes.js";
 import authRoutes from "./auth.routes.js";
-import verifyEamil from "./emailVerification.routes.js";
+import verifyEamil from "./email.routes.js";
 
 const router = express.Router();
 

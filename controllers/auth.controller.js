@@ -10,7 +10,8 @@ export const registerUser = async (req, res) => {
 
     res.status(201).json({ user, message: "Registeration successful" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log({ error: error.message });
+    res.status(500).json("Registration failed");
   }
 };
 
@@ -23,7 +24,8 @@ export const loginUser = async (req, res) => {
 
     res.status(200).json({ user, message: "Login successful" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log({ error: error.message });
+    res.status(500).json("Login failed");
   }
 };
 
@@ -34,6 +36,7 @@ export const logoutUser = async (req, res) => {
     res.clearCookie("token");
     res.status(200).json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log({ error: error.message });
+    res.status(500).json("Logout failed");
   }
 };

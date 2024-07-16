@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
-import { generateAuthToken, generateVerificationToken } from "./token.service.js";
+import { generateAuthToken } from "./token.service.js";
 import { revokeToken } from "./token.service.js";
 import { sendVerificationEmail } from "./email.service.js";
 
@@ -14,9 +14,8 @@ export const register = async (userData) => {
     await newUser.save();
 
     const token = generateAuthToken(newUser);
-    const verificationToken = generateVerificationToken(newUser._id);
 
-    await sendVerificationEmail(newUser, verificationToken);
+    await sendVerificationEmail(newUser);
 
     return { user: newUser, token };
   } catch (error) {

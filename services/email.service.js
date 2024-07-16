@@ -1,9 +1,11 @@
 import transporter from "../config/email.config.js";
 import User from "../models/user.model.js";
-import { verifyToken } from "./token.service.js";
+import { generateVerificationToken, verifyToken } from "./token.service.js";
 
-export const sendVerificationEmail = async (user, token) => {
-  const verificationUrl = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
+export const sendVerificationEmail = async (user) => {
+  const verificationToken = generateVerificationToken(user._id);
+
+  const verificationUrl = `${process.env.CLIENT_URL}/verify-email?token=${verificationToken}`;
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
