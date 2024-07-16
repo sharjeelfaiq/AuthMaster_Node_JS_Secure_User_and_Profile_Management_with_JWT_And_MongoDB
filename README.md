@@ -1,1 +1,1 @@
-# node-express-mongodb-jwt-complete-auth-template
+# node-express-mongodb-jwt-joi-validation-auth-template
