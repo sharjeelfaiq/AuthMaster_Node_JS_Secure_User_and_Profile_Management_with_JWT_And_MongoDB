@@ -122,8 +122,8 @@ To get the application up and running on your local machine, follow these steps:
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/your-username/complete_node_auth.git
-    cd complete_node_auth
+    git clone https://github.com/sharjeelfaiq/AuthMaster_Node_JS_Secure_User_and_Profile_Management_with_JWT_And_MongoDB.git
+    cd AuthMaster_Node_JS_Secure_User_and_Profile_Management_with_JWT_And_MongoDB
     ```
 
 2. **Install Dependencies**:
@@ -132,10 +132,6 @@ To get the application up and running on your local machine, follow these steps:
     ```
 
 3. **Set Up Environment Variables**:
-    - Copy the `.env.example` file to `.env`:
-    ```bash
-    cp .env.example .env
-    ```
     - Open the `.env` file and configure the necessary environment variables.
 
 4. **Start the Application**:
@@ -152,8 +148,8 @@ To get the application up and running on your local machine, follow these steps:
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/your-username/complete_node_auth.git
-    cd complete_node_auth
+    git clone https://github.com/sharjeelfaiq/AuthMaster_Node_JS_Secure_User_and_Profile_Management_with_JWT_And_MongoDB.git
+    cd AuthMaster_Node_JS_Secure_User_and_Profile_Management_with_JWT_And_MongoDB
     ```
 
 2. **Install Dependencies**:
@@ -162,10 +158,6 @@ To get the application up and running on your local machine, follow these steps:
     ```
 
 3. **Set Up Environment Variables**:
-    - Copy the `.env.example` file to `.env`:
-    ```bash
-    cp .env.example .env
-    ```
     - Open the `.env` file and configure the necessary environment variables.
 
 4. **Start the Application**:
@@ -182,8 +174,8 @@ To get the application up and running on your local machine, follow these steps:
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/your-username/complete_node_auth.git
-    cd complete_node_auth
+    git clone https://github.com/sharjeelfaiq/AuthMaster_Node_JS_Secure_User_and_Profile_Management_with_JWT_And_MongoDB.git
+    cd AuthMaster_Node_JS_Secure_User_and_Profile_Management_with_JWT_And_MongoDB
     ```
 
 2. **Install Dependencies**:
