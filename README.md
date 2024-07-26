@@ -192,10 +192,6 @@ To get the application up and running on your local machine, follow these steps:
     ```
 
 3. **Set Up Environment Variables**:
-    - Copy the `.env.example` file to `.env`:
-    ```bash
-    cp .env.example .env
-    ```
     - Open the `.env` file and configure the necessary environment variables.
 
 4. **Start the Application**:
