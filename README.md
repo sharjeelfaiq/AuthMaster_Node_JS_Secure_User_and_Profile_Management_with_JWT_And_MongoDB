@@ -32,8 +32,6 @@ Welcome to the Node.js Authentication System project! This application is design
 - **nodemailer**: Library for sending emails.
 - **winston**: Library for logging.
 - **eslint**: Tool for ensuring code quality.
-- **jsonwebtoken**: For creating and verifying JSON Web Tokens (JWT).
-- **bcryptjs**: For hashing passwords securely.
 - **express-validator**: For validating and sanitizing request data.
 - **rate-limit-mongo**: For rate limiting using MongoDB.
 - **connect-mongo**: For storing session data in MongoDB.
@@ -45,72 +43,74 @@ Welcome to the Node.js Authentication System project! This application is design
 Here’s how the project is organized:
 
 ```
+```markdown
 project-root/
 │
-├── node_modules/                 # Dependencies installed by npm or pnpm
+├── node_modules/                        # Dependencies installed by npm or pnpm
 │
-├── Postman Collections/          # Postman collection for testing the API
+├── Postman Collections/                 # Postman collection for testing the API
 │   └── Complete_Auth_POSTMAN.json
 │
-├── src/                          # Source code
-│   ├── config/                   # Configuration files
-│   │   ├── db.connect.js         # Database connection settings
-│   │   ├── email.config.js       # Email configuration
-│   │   ├── env.config.js         # Environment variables
-│   │   ├── middleware.config.js  # Middleware settings
-│   │   └── routes.config.js      # Route settings
+├── src/                                 # Source code
+│   ├── config/                          # Configuration files
+│   │   ├── db.connect.js                # Database connection settings
+│   │   ├── email.config.js              # Email configuration
+│   │   ├── env.config.js                # Environment variables
+│   │   ├── middleware.config.js         # Middleware settings
+│   │   └── routes.config.js             # Route settings
 │   │
-│   ├── controllers/             # Functions to handle API requests
-│   │   ├── auth.controller.js    # Authentication logic
-│   │   ├── email.controller.js   # Email verification logic
-│   │   ├── profile.controller.js # Profile management
-│   │   └── user.controller.js    # User management
+│   ├── controllers/                     # Functions to handle API requests
+│   │   ├── auth.controller.js           # Authentication logic
+│   │   ├── email.controller.js          # Email verification logic
+│   │   ├── profile.controller.js        # Profile management
+│   │   └── user.controller.js           # User management
 │   │
-│   ├── middlewares/             # Middleware functions
-│   │   ├── auth.middleware.js    # Authentication checks
-│   │   ├── csrf.middleware.js    # CSRF protection
-│   │   ├── error.middleware.js   # Error handling
-│   │   ├── uploadProfilePicture.middleware.js # Handling profile picture uploads
-│   │   └── validate.middleware.js # Request validation
+│   ├── middlewares/                     # Middleware functions
+│   │   ├── auth.middleware.js           # Authentication checks
+│   │   ├── csrf.middleware.js           # CSRF protection
+│   │   ├── error.middleware.js          # Error handling
+│   │   ├── uploadProfilePicture.middleware.js  # Handling profile picture uploads
+│   │   └── validate.middleware.js       # Request validation
 │   │
-│   ├── models/                  # Database models
-│   │   ├── revokedToken.model.js # Revoked tokens
-│   │   ├── profile.model.js      # User profiles
-│   │   └── user.model.js         # User data
+│   ├── models/                          # Database models
+│   │   ├── revokedToken.model.js        # Revoked tokens
+│   │   ├── profile.model.js             # User profiles
+│   │   └── user.model.js                # User data
 │   │
-│   ├── routes/                  # API routes
-│   │   ├── auth.routes.js        # Routes for authentication
-│   │   ├── email.routes.js       # Routes for email verification
-│   │   └── user.routes.js        # Routes for user management
+│   ├── routes/                          # API routes
+│   │   ├── auth.routes.js               # Routes for authentication
+│   │   ├── email.routes.js              # Routes for email verification
+│   │   └── user.routes.js               # Routes for user management
 │   │
-│   ├── services/                # Business logic and services
-│   │   ├── auth.service.js       # Services for authentication
-│   │   ├── email.service.js      # Services for email handling
-│   │   ├── profile.service.js    # Services for profile management
-│   │   ├── token.service.js      # Token management services
-│   │   └── user.service.js       # User services
+│   ├── services/                        # Business logic and services
+│   │   ├── auth.service.js              # Services for authentication
+│   │   ├── email.service.js             # Services for email handling
+│   │   ├── profile.service.js           # Services for profile management
+│   │   ├── token.service.js             # Token management services
+│   │   └── user.service.js              # User services
 │   │
-│   ├── utils/                   # Utility functions
-│   │   ├── logger.utils.js       # Logging utilities
-│   │   └── token.utils.js        # Token utilities
+│   ├── utils/                           # Utility functions
+│   │   ├── logger.utils.js              # Logging utilities
+│   │   └── token.utils.js               # Token utilities
 │   │
-│   └── validations/             # Validation schemas
-│       └── auth.validations.js   # Authentication validation
+│   └── validations/                     # Validation schemas
+│       └── auth.validations.js          # Authentication validation
 │
-├── app.js                       # Main application file
-├── server.js                    # Server setup and configuration
+├── app.js                              # Main application file
+├── server.js                           # Server setup and configuration
 │
-├── uploads/                     # Uploaded files
-│   ├── certificates/            # Certificates
-│   └── profilePictures/         # Profile pictures
+├── uploads/                            # Uploaded files
+│   ├── certificates/                   # Certificates
+│   └── profilePictures/                # Profile pictures
 │
-├── .env                         # Environment variables
-├── .gitignore                    # Git ignore file
-├── endpoints.md                 # Documentation for API endpoints
-├── eslint.config.js             # ESLint configuration
-├── package.json                 # Project metadata and dependencies
-├── pnpm-lock.yaml               # PNPM lock file
-└── README.md                    # Project overview and instructions
+├── .env                                # Environment variables
+├── .gitignore                           # Git ignore file
+├── endpoints.md                        # Documentation for API endpoints
+├── eslint.config.js                    # ESLint configuration
+├── package.json                        # Project metadata and dependencies
+├── pnpm-lock.yaml                      # PNPM lock file
+└── README.md                           # Project overview and instructions
+```
 ```
 
 ## Getting Started
@@ -235,11 +235,11 @@ You can find detailed information about the available API endpoints in the [Post
 
 ## Postman Collection
 
-For testing and interacting with the API, you
-
- can use the provided Postman collection. Import the `Complete_Auth_POSTMAN.json` file into Postman to explore the endpoints.
+To test and interact with the API, you can use the Postman collection provided. Import the `Complete_Auth_POSTMAN.json` file into Postman to explore the endpoints.
 
 ## License
 
-This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
+This project is
+
+ licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
 ```
