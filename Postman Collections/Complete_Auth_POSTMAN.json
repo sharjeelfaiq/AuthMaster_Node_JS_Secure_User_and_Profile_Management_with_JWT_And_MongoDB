@@ -1,0 +1,610 @@
+{
+  "info": {
+    "_postman_id": "99630d6e-bd24-4919-bc93-484f1a2fd42f",
+    "name": "Complete_Auth_POSTMAN",
+    "description": "Collection of API endpoints for user registration, authentication, and profile management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "95349e33-8fde-47a9-acf0-e4ada4924d0f",
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "bb7a0c1b-377d-4630-9862-f28f352f4227",
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "id": "9dae986a-6570-4afe-af8e-001a7c7a6d1f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"User\",\r\n    \"lastName\": \"310\",\r\n    \"email\": \"user0@example.com\",\r\n    \"password\": \"password123\",\r\n    \"phoneNumber\": \"1234567890\",\r\n    \"role\": \"admin\"\r\n}"
+            },
+            "url": "{{base_url}}/auth/register"
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "586c6005-9446-4c0e-b95f-714ec7dfdac9",
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "id": "280514bb-fdc8-4be3-b4c6-a0c6eee12692",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "xcsrf",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"user0@unlocked.com\",\r\n    \"password\": \"password123\"\r\n}"
+            },
+            "url": "{{base_url}}/auth/login"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "bd30242e-47a3-4c4a-b932-8379ac1562ea",
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "id": "65bd496d-655e-404a-9852-f35a09afa7c4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{base_url}}/auth/logout"
+          },
+          "response": []
+        }
+      ],
+      "id": "f44df660-5dfc-41a2-af34-082404900115",
+      "description": "Endpoints to manage user register, login and logout."
+    },
+    {
+      "name": "User Management",
+      "item": [
+        {
+          "name": "Get All",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "02f846d5-cb2f-4829-a72a-f748ae9713d1",
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "id": "92616e2e-f937-4790-a88e-85a0d02e34a5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "auth_token",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{base_url}}/user/get-all-users"
+          },
+          "response": []
+        },
+        {
+          "name": "Get by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "1a8402d1-be00-4beb-849d-99292f0305ec",
+                "exec": [
+                  "var template = `\r",
+                  "<style type=\"text/css\">\r",
+                  "    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+                  "    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+                  "    .tftable tr {background-color:#ffffff;}\r",
+                  "    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+                  "    .tftable tr:hover {background-color:#e0ffff;}\r",
+                  "</style>\r",
+                  "\r",
+                  "<table class=\"tftable\" border=\"1\">\r",
+                  "    <tr>\r",
+                  "        <th>Field</th>\r",
+                  "        <th>Value</th>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>_id</td>\r",
+                  "        <td>{{response.user._id}}</td>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>First Name</td>\r",
+                  "        <td>{{response.user.firstName}}</td>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>Last Name</td>\r",
+                  "        <td>{{response.user.lastName}}</td>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>Email</td>\r",
+                  "        <td>{{response.user.email}}</td>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>Password</td>\r",
+                  "        <td>{{response.user.password}}</td>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>Phone Number</td>\r",
+                  "        <td>{{response.user.phoneNumber}}</td>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>Role</td>\r",
+                  "        <td>{{response.user.role}}</td>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>Email Verified</td>\r",
+                  "        <td>{{response.user.emailVerified}}</td>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>Created At</td>\r",
+                  "        <td>{{response.user.createdAt}}</td>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>Updated At</td>\r",
+                  "        <td>{{response.user.updatedAt}}</td>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>__v</td>\r",
+                  "        <td>{{response.user.__v}}</td>\r",
+                  "    </tr>\r",
+                  "    <tr>\r",
+                  "        <td>CSRF Token</td>\r",
+                  "        <td>{{response.csrfToken}}</td>\r",
+                  "    </tr>\r",
+                  "</table>\r",
+                  "`;\r",
+                  "\r",
+                  "function constructVisualizerPayload() {\r",
+                  "    return { response: pm.response.json() }\r",
+                  "}\r",
+                  "\r",
+                  "pm.visualizer.set(template, constructVisualizerPayload());"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "id": "ad04f95e-70cc-417e-9512-41467c7f7606",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "auth_token",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/user/get-user"
+          },
+          "response": []
+        },
+        {
+          "name": "Update by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c816eae3-6e25-43b7-bf3b-3e52882ff2c8",
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "id": "5d0a9bd9-b752-4055-800f-9541c82b595b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "auth_token",
+                "value": "{{auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{X-CSRF-Token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"phoneNumber\": 1616456848\r\n}"
+            },
+            "url": "{{base_url}}/user/update-user"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2b4c12b5-5b15-44a0-aef3-6447ee724d18",
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "03a8f585-3238-45f7-b489-6f2591f9c3e0",
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "id": "146c30e7-e346-4ca6-a463-bf92b049eeb2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "auth_token",
+                "value": "{{auth_token}}",
+                "type": "text"
+              },
+              {
+                "key": "X-CSRF-Token",
+                "value": "{{X-CSRF-Token}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{base_url}}/user/remove-user"
+          },
+          "response": []
+        }
+      ],
+      "id": "90cb9a84-4bd8-4c6f-a66d-d94b6d20e952",
+      "description": "Endpoints for reading, updating and deleting users data."
+    },
+    {
+      "name": "Email Verification",
+      "item": [
+        {
+          "name": "Verify Email",
+          "id": "78b1bbf6-12a5-4f13-9b1c-ebfe9e03ac6e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/email/verify-email?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjlhOGEyYTllNWNmYTQ5N2Q4YTU2MjAiLCJpYXQiOjE3MjE0MDM5NDcsImV4cCI6MTcyMTQwNDI0N30.RjiejDJhXQx9ijoyte_GVAOh3W7cKvvwv0nFupYgfHI",
+              "host": ["{{base_url}}"],
+              "path": ["email", "verify-email"],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjlhOGEyYTllNWNmYTQ5N2Q4YTU2MjAiLCJpYXQiOjE3MjE0MDM5NDcsImV4cCI6MTcyMTQwNDI0N30.RjiejDJhXQx9ijoyte_GVAOh3W7cKvvwv0nFupYgfHI"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Resend Verification Email",
+          "id": "431872de-fc8d-42c9-87be-9d7fd1f8d8a8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"john.doe@example.com\"\r\n}"
+            },
+            "url": "{{base_url}}/email/resend-verification"
+          },
+          "response": []
+        }
+      ],
+      "id": "d1b99202-c47a-4b3f-9c38-40ac24c57b77",
+      "description": "Endpoints for email verification, including verifying the email address and resending verification emails."
+    },
+    {
+      "name": "Profile Managment",
+      "item": [
+        {
+          "name": "Profile",
+          "item": [
+            {
+              "name": "Get by ID",
+              "id": "57bea906-05e1-42d3-9a6b-bd60cabcbc96",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "auth_token",
+                    "value": "{{auth_token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": "{{base_url}}/user/profile"
+              },
+              "response": []
+            },
+            {
+              "name": "Create or Update",
+              "id": "2c477814-acf8-422d-a8ff-12c40c77f11a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-CSRF-Token",
+                    "value": "LVEbRhB3-I1Uzi9006z0ose9MrJC2SdFwHQE",
+                    "type": "text"
+                  },
+                  {
+                    "key": "{{auth_token}}",
+                    "value": "",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "gender",
+                      "value": "dum",
+                      "type": "text"
+                    },
+                    {
+                      "key": "tagLine",
+                      "value": "Dummy Expert",
+                      "type": "text"
+                    },
+                    {
+                      "key": "profilePicture",
+                      "type": "file",
+                      "fileNotInWorkingDirectoryWarning": "This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.",
+                      "filesNotInWorkingDirectory": [
+                        "/C:/Users/mrmal/OneDrive/Pictures/Lock Screen/inscription_motivation_travel_119811_1600x900.jpg"
+                      ],
+                      "src": "/C:/Users/mrmal/OneDrive/Pictures/Lock Screen/inscription_motivation_travel_119811_1600x900.jpg"
+                    },
+                    {
+                      "key": "introduction",
+                      "value": "I'm the best dummy user.",
+                      "type": "text"
+                    },
+                    {
+                      "key": "experience",
+                      "value": "Dummy years",
+                      "type": "text"
+                    },
+                    {
+                      "key": "education",
+                      "value": "Dummy education",
+                      "type": "text"
+                    },
+                    {
+                      "key": "specializations",
+                      "value": "DS 1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "specializations",
+                      "value": "DS 2",
+                      "type": "text"
+                    },
+                    {
+                      "key": "levels",
+                      "value": "DL 1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "levels",
+                      "value": "DL 2",
+                      "type": "text"
+                    },
+                    {
+                      "key": "levels",
+                      "value": "DL 3",
+                      "type": "text"
+                    },
+                    {
+                      "key": "travelPreferences",
+                      "value": "DTP 1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "travelPreferences",
+                      "value": "DTP 2",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": "{{base_url}}/user/profile"
+              },
+              "response": []
+            }
+          ],
+          "id": "ccaff061-014f-4bad-89d0-47013f388c49",
+          "description": "Endpoints for user profile creation, retrieval and update data."
+        },
+        {
+          "name": "Get Details",
+          "id": "31d5aae7-c6fb-49ec-a9f5-e8c3a18b88f6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "auth_token",
+                "value": "{{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{base_url}}/user/get-details"
+          },
+          "response": []
+        }
+      ],
+      "id": "99533313-e9be-4a58-bb94-5596ae548ee1",
+      "description": "Endpoints for user management, including user:\n\n1. Profile creation, retrieval and update data.\n    \n2. Qualification creation, retrieval and update data.\n    \n3. Retrieving all details of a user."
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": {
+      "token": ""
+    }
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "30382eb3-5ca8-4b25-9dd5-a485dc753f9a",
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "5960f547-ff0b-4007-96e4-223be6249f22",
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "X-CSRF-Token",
+      "value": "rReUZ9Ia-mTY4FC_Ago6eDduB2vZC86v6Ryo",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmEwMDY0ZGUxMWRkYmVlMWZjMWZmZWIiLCJlbWFpbCI6InVzZXIxMjFAdW5sb2NrZWQuY29tIiwiZmlyc3ROYWVtIjoiVXNlciIsImlhdCI6MTcyMTc3MjYyMywiZXhwIjoxNzIxNzc0NDIzfQ.LzPhNc6vahpGch11vIhR9YCFH8bRSRAoPO3FyCwDto4",
+      "type": "string"
+    }
+  ]
+}
