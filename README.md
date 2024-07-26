@@ -37,13 +37,12 @@ Welcome to the Node.js Authentication System project! This application is design
 - **connect-mongo**: For storing session data in MongoDB.
 - **helmet**: For securing HTTP headers.
 - **cors**: For enabling Cross-Origin Resource Sharing.
-
+```
+```markdown
 ## Project Structure
 
 Here’s how the project is organized:
 
-```
-```markdown
 project-root/
 │
 ├── node_modules/                        # Dependencies installed by npm or pnpm
