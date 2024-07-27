@@ -10,7 +10,6 @@ export const register = async (userData) => {
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) throw createError(409, "User already exists");
-
     const user = new User(userData);
     await user.save();
 

@@ -5,10 +5,10 @@ import logger from "../utils/logger.utils.js";
 
 export const getProfile = async (req, res, next) => {
   const token = req.headers.auth_token;
-  const decoded = await verifyToken(token);
-  const userId = decoded._id;
 
   try {
+    const decoded = await verifyToken(token);
+    const userId = decoded._id;
     const profile = await getById(userId);
     res.status(200).json({ profile, csrfToken: req.csrfToken() });
   } catch (error) {
@@ -19,12 +19,12 @@ export const getProfile = async (req, res, next) => {
 
 export const creatOrUpdateProfile = async (req, res, next) => {
   const token = req.headers.auth_token;
-  const decoded = await verifyToken(token);
-  const userId = decoded._id;
   const profileData = req.body;
   const filePath = req.file?.path;
 
   try {
+    const decoded = await verifyToken(token);
+    const userId = decoded._id;
     const profile = await createOrUpate(userId, profileData, filePath);
     res.status(200).json({ profile });
   } catch (error) {

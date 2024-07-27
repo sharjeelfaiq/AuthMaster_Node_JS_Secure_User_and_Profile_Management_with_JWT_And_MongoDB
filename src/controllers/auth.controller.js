@@ -4,8 +4,9 @@ import { setTokenCookie } from "../utils/token.utils.js";
 import logger from "../utils/logger.utils.js";
 
 export const registerUser = async (req, res, next) => {
+  const userData = req.body;
+
   try {
-    const userData = req.body;
     const user = await register(userData);
     const { token } = user;
 
@@ -20,8 +21,9 @@ export const registerUser = async (req, res, next) => {
 };
 
 export const loginUser = async (req, res, next) => {
+  const { email, password } = req.body;
+
   try {
-    const { email, password } = req.body;
     const user = await login(email, password);
     const { token } = user;
 
@@ -37,6 +39,7 @@ export const loginUser = async (req, res, next) => {
 
 export const logoutUser = async (req, res, next) => {
   const { token } = req.cookies;
+
   try {
     const response = await logout(token);
     res.clearCookie("token");

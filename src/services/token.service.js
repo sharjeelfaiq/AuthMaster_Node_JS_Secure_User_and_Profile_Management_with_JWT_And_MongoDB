@@ -6,8 +6,8 @@ import logger from "../utils/logger.utils.js";
 
 export const revokeToken = async (token, expiresIn) => {
   const expiresAt = new Date(Date.now() + expiresIn);
-  const revokedToken = new RevokedToken({ token, expiresAt });
   try {
+    const revokedToken = new RevokedToken({ token, expiresAt });
     await revokedToken.save();
   } catch (error) {
     logger.error("Failed to revoke token", { error: error.message });

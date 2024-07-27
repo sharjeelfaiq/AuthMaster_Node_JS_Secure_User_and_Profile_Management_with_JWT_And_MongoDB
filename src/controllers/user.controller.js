@@ -17,10 +17,10 @@ export const getAllUsers = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
   const token = req.headers.auth_token;
-  const decoded = await verifyToken(token);
-  const userId = decoded._id;
 
   try {
+    const decoded = await verifyToken(token);
+    const userId = decoded._id;
     const user = await getById(userId);
     res.status(200).json({ user, csrfToken: req.csrfToken() });
   } catch (error) {
@@ -31,11 +31,11 @@ export const getUser = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
   const token = req.headers.auth_token;
-  const decoded = await verifyToken(token);
-  const userId = decoded._id;
   const userData = req.body;
 
   try {
+    const decoded = await verifyToken(token);
+    const userId = decoded._id;
     await update(userId, userData);
     res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
@@ -48,10 +48,10 @@ export const updateUser = async (req, res, next) => {
 
 export const deleteUser = async (req, res, next) => {
   const token = req.headers.auth_token;
-  const decoded = await verifyToken(token);
-  const userId = decoded._id;
 
   try {
+    const decoded = await verifyToken(token);
+    const userId = decoded._id;
     const response = await remove(userId);
     res.status(200).json({ message: response });
   } catch (error) {
