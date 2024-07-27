@@ -7,10 +7,8 @@ import logger from "../utils/logger.utils.js";
 export const sendVerificationEmail = async (token) => {
   try {
     const decoded = await verifyToken(token);
-    const { userId } = decoded;
-    const { email } = decoded;
-    const { firstName } = decoded;
-  
+    const { userId, email, firstName } = decoded;
+
     const verificationToken = generateVerificationToken(userId);
 
     // eslint-disable-next-line no-undef
