@@ -1,11 +1,18 @@
 import multer from "multer";
 import path from "path";
+import { verifyToken } from "../services/token.service.js";
 
 const storage = multer.diskStorage({
-  destination: "../uploads/profilePictures",
-  filename: function (req, _res, file, cb) {
-    const userId = req.params.userId.slice(-4); // Get the user ID from the request parameters
-    cb(null, `${userId}-${Date.now()}${path.extname(file.originalname)}`);
+  destination: function (req, file, cb) {
+    cb(null, "uploads/profilePictures");
+  },
+  filename: async function (req, file, cb) {
+    const token = req.headers.auth_token;
+    const decoded = await verifyToken(token);
+    const userId = decoded._id.slice(-4);
+    const fileName = `${userId}-${file.fieldname}-${file.originalname}`;
+
+    cb(null, fileName);
   },
 });
 
