@@ -16,10 +16,10 @@ const configMiddleware = (app) => {
   });
 
   // eslint-disable-next-line no-undef
-  const secret = process.env.SESSION_SECRET;
+  const { SESSION_SECRET } = process.env;
 
   const sessionConfig = {
-    secret,
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false }, // Set secure: true in production with HTTPS

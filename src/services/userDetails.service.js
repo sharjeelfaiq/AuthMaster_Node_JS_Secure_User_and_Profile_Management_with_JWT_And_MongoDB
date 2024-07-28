@@ -1,32 +1,20 @@
 import createError from "http-errors";
-import User from "../models/user.model.js";
-import Profile from "../models/profile.model.js";
-import logger from "../utils/logger.utils.js";
+import { handleServiceError } from "../utils/utils.js";
+import UserDetails from "../models/userDetails.model.js";
 
-const getDetails = async (userId) => {
+export const getDetails = async (userId) => {
   try {
-    const user = await User.findById(userId);
-    const profile = await Profile.findOne({ user: userId });
+    const userDetails = await UserDetails.findOne({ user: userId })
+      .populate("user")
+      .populate("profile")
+      .populate("qualifications");
 
-    if (!user) {
-      throw createError(404, "User not found");
+    if (!userDetails) {
+      throw createError(404, "user details not found");
     }
 
-    const userDetails = {
-      profile: {
-        fullName: `${user.firstName} ${user.lastName}`,
-        tagLine: profile.tagLine,
-        introduction: profile.introduction,
-      },
-    };
-
-    return { userDetails };
+    return userDetails;
   } catch (error) {
-    logger.error(
-      `Failed to fetch user details for user ${userId}: ${error.message}`
-    );
-    throw createError(500, `Failed to fetch user details: ${error.message}`);
+    handleServiceError("Failed to fetch user details", error);
   }
 };
-
-export default getDetails;

@@ -2,7 +2,8 @@ import createError from "http-errors";
 import User from "../models/user.model.js";
 import Qualification from "../models/qualification.model.js";
 import Profile from "../models/profile.model.js";
-import logger from "../utils/logger.utils.js";
+import UserDetails from "../models/userDetails.model.js";
+import { handleServiceError } from "../utils/utils.js";
 
 export const getAll = async () => {
   try {
@@ -10,11 +11,7 @@ export const getAll = async () => {
     if (!users.length) throw createError(404, "No users found");
     return users;
   } catch (error) {
-    logger.error(`Failed to fetch users: ${error.message}`);
-    throw createError(
-      error.status || 500,
-      error.message || `Failed to fetch users: ${error.message}`
-    );
+    handleServiceError("Failed to fetch users", error);
   }
 };
 
@@ -24,12 +21,7 @@ export const getById = async (userId) => {
     if (!user) throw createError(404, `User with ID ${userId} does not exist`);
     return user;
   } catch (error) {
-    logger.error(`Failed to fetch user with ID ${userId}: ${error.message}`);
-    throw createError(
-      error.status || 500,
-      error.message ||
-        `Failed to fetch user with ID ${userId}: ${error.message}`
-    );
+    handleServiceError(`Failed to fetch user`, error);
   }
 };
 
@@ -41,28 +33,23 @@ export const update = async (userId, updateData) => {
     if (!user) throw createError(404, `User with ID ${userId} does not exist`);
     return user;
   } catch (error) {
-    logger.error(`Failed to update user with ID ${userId}: ${error.message}`);
-    throw createError(
-      error.status || 500,
-      error.message ||
-        `Failed to update user with ID ${userId}: ${error.message}`
-    );
+    handleServiceError(`Failed to update user`, error);
   }
 };
 
 export const remove = async (userId) => {
   try {
+    await Promise.all([
+      Profile.findOneAndDelete({ user: userId }),
+      Qualification.deleteMany({ user: userId }),
+      UserDetails.findOneAndDelete({ user: userId }),
+    ]);
+
     const user = await User.findByIdAndDelete(userId);
-    await Profile.findOneAndDelete({ user: userId });
-    await Qualification.findOneAndDelete({ user: userId });
     if (!user) throw createError(404, `User with ID ${userId} does not exist`);
+
     return "User deleted successfully";
   } catch (error) {
-    logger.error(`Failed to delete user with ID ${userId}: ${error.message}`);
-    throw createError(
-      error.status || 500,
-      error.message ||
-        `Failed to delete user with ID ${userId}: ${error.message}`
-    );
+    handleServiceError(`Failed to delete user`, error);
   }
 };

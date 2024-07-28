@@ -2,7 +2,9 @@ import dotenv from "dotenv";
 
 const configEnv = () => {
   // eslint-disable-next-line no-undef
-  switch (process.env.NODE_ENV) {
+  const { NODE_ENV } = process.env;
+
+  switch (NODE_ENV) {
     case "development":
       dotenv.config({ path: ".env.development" });
       break;
@@ -12,6 +14,6 @@ const configEnv = () => {
     default:
       dotenv.config({ path: ".env" });
   }
-}
+};
 
 export default configEnv;

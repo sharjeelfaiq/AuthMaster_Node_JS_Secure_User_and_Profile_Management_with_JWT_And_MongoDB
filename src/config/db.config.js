@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
-import logger from "../utils/logger.utils.js";
+import { logger } from "../utils/utils.js";
 
 const configDB = async () => {
+  // eslint-disable-next-line no-undef
+  const { MONGODB_URI } = process.env;
   try {
-    // eslint-disable-next-line no-undef
-    await mongoose.connect(process.env.MONGODB_URI).then(() => {
+    await mongoose.connect(MONGODB_URI).then(() => {
       logger.info("Connected to MongoDB Database".magenta.bold);
     });
 
@@ -15,7 +16,7 @@ const configDB = async () => {
     });
 
     db.on("disconnected", () => {
-      logger.warn("MongoDB disconnected".yellow.bold);
+      logger.error("MongoDB disconnected".red.bold);
     });
 
     // eslint-disable-next-line no-undef

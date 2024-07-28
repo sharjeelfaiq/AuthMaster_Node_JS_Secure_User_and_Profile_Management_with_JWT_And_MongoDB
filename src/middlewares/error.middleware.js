@@ -1,4 +1,4 @@
-import logger from "../utils/logger.utils.js";
+import { logger } from "../utils/utils.js";
 
 const errorHandler = (err, _req, res, _next) => {
   // Log the error with stack trace

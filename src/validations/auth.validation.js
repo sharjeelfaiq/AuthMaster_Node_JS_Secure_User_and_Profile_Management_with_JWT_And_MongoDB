@@ -25,27 +25,9 @@ export const registerSchema = Joi.object({
     "string.min": "Password must be at least 6 characters long",
     "any.required": "Password is required",
   }),
-  phoneNumber: Joi.string()
-    .pattern(/^\d{7,10}$/)
-    .required()
-    .messages({
-      "string.base": "Phone number should be a type of text",
-      "string.empty": "Phone number should not be empty",
-      "string.pattern.base": "Phone number must be between 7 and 10 digits",
-      "any.required": "Phone number is required",
-    }),
-  // identityNumber: Joi.string()
-  //   .pattern(/^\d{16}$/)
-  //   .required()
-  //   .messages({
-  //     "string.base": "Identity number should be a type of text",
-  //     "string.empty": "Identity number should not be empty",
-  //     "string.pattern.base": "Identity number must be 16 digits long",
-  //     "any.required": "Identity number is required",
-  //   }),
-  role: Joi.string().valid("admin", "user").required().messages({
+  role: Joi.string().valid("admin", "user", "student").required().messages({
     "string.base": "Role should be a type of text",
-    "any.only": "Role must be either admin or user",
+    "any.only": "Role must be either admin, user, or student",
     "any.required": "Role is required",
   }),
 });

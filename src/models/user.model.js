@@ -28,23 +28,11 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: [6, "Password must be at least 6 characters long"],
     },
-    phoneNumber: {
-      type: String,
-      required: [true, "Phone number is required"],
-      trim: true,
-      match: [/^\d{7,10}$/, "Phone number must be between 7 and 10 digits"],
-    },
-    identityNumber: {
-      type: String,
-      required: [true, "Identity number is required"],
-      trim: true,
-      match: [/^\d{16}$/, "Identity number must be 16 digits long"],
-    },
     role: {
       type: String,
       enum: {
-        values: ["admin", "user"],
-        message: "Role must be either admin or user",
+        values: ["admin", "user", "student"],
+        message: "Role must be either admin, user, or student",
       },
       required: true,
       default: "student",
@@ -67,6 +55,6 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-const User = mongoose.model("Users", userSchema);
+const User = mongoose.model("users", userSchema);
 
 export default User;

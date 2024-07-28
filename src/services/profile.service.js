@@ -1,7 +1,8 @@
 import createError from "http-errors";
 import User from "../models/user.model.js";
 import Profile from "../models/profile.model.js";
-import logger from "../utils/logger.utils.js";
+import { handleServiceError } from "../utils/utils.js";
+import UserDetails from "../models/userDetails.model.js";
 
 export const getById = async (userId) => {
   try {
@@ -9,20 +10,23 @@ export const getById = async (userId) => {
     if (!profile) throw createError(404, "Profile not found");
     return profile;
   } catch (error) {
-    logger.error(`Fetching profile failed: ${error.message}`);
-    throw createError(
-      error.status || 500,
-      error.message || "Internal Server Error"
-    );
+    handleServiceError("Failed to fetch profile", error);
   }
 };
 
-export const createOrUpate = async (userId, profileData, filePath) => {
+export const createOrUpate = async (
+  userId,
+  profileData,
+  profilePicturePath,
+  idImagePath
+) => {
   try {
     const user = await User.findById(userId);
     if (!user) throw createError(404, "User not found");
+    if (user.role !== "user") throw createError(400, "User is not a user");
 
-    profileData.profilePicture = filePath && filePath;
+    profileData.profilePicture = profilePicturePath && profilePicturePath;
+    profileData.idImage = idImagePath && idImagePath;
 
     const profile = await Profile.findOneAndUpdate(
       { user: userId },
@@ -30,12 +34,13 @@ export const createOrUpate = async (userId, profileData, filePath) => {
       { new: true, upsert: true }
     );
 
+    await UserDetails.findOneAndUpdate(
+      { user: userId },
+      { $set: { profile: profile._id } }
+    );
+
     return profile;
   } catch (error) {
-    logger.error(`Profile creation failed: ${error.message}`);
-    throw createError(
-      error.status || 500,
-      error.message || "Internal Server Error"
-    );
+    handleServiceError("Failed to create or update profile", error);
   }
 };

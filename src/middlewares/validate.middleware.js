@@ -1,5 +1,5 @@
 import createError from "http-errors";
-import logger from "../utils/logger.utils.js";
+import { logger } from "../utils/utils.js";
 
 const validateMiddleware = (schema) => async (req, res, next) => {
   try {
