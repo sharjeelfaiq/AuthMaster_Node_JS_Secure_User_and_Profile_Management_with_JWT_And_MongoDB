@@ -1,17 +1,15 @@
-// auth.service.js
 import createError from "http-errors";
 import User from "../models/user.model.js";
 import UserDetails from "../models/userDetails.model.js";
 import bcrypt from "bcryptjs";
 import { generateAuthToken, revokeToken } from "./token.service.js";
 import { sendVerificationEmail } from "./email.service.js";
-import { handleServiceError } from "../utils/utils.js";
+import { handleError } from "../utils/utils.js";
 
-// Utility function to create response object
-const createUserResponse = ({ firstName, lastName, email }, token) => ({
-  firstName,
-  lastName,
-  email,
+const createUserResponse = (user, token) => ({
+  firstName: user.firstName,
+  lastName: user.lastName,
+  email: user.email,
   token,
 });
 
@@ -22,17 +20,17 @@ export const register = async (userData) => {
     if (existingUser) throw createError(409, "User already exists");
 
     const user = new User(userData);
-    const userDetails = new UserDetails({ user: user._id });
+    user.save();
 
-    // Save user and user details in parallel
-    await Promise.all([user.save(), userDetails.save()]);
+    const userDetails = new UserDetails({ user: user._id });
+    userDetails.save();
 
     const token = generateAuthToken(user);
     await sendVerificationEmail(token);
 
     return createUserResponse(user, token);
   } catch (error) {
-    handleServiceError("Failed to register user", error);
+    throw handleError("Failed to register user", error);
   }
 };
 
@@ -48,18 +46,21 @@ export const login = async (email, password) => {
 
     return createUserResponse(user, token);
   } catch (error) {
-    handleServiceError("Failed to login user", error);
+    throw handleError("Failed to login user", error);
   }
 };
 
 export const logout = async (token) => {
   try {
     // eslint-disable-next-line no-undef
-    const { JWT_EXPIRATION } = Number(process.env) * 1000;
+    const JWT_EXPIRATION = Number(process.env.JWT_EXPIRATION) * 1000;
+    if (isNaN(JWT_EXPIRATION))
+      throw createError(500, "Invalid JWT_EXPIRATION value");
+
     await revokeToken(token, JWT_EXPIRATION);
 
     return "Logout successful";
   } catch (error) {
-    handleServiceError("Failed to logout user", error);
+    throw handleError("Failed to logout user", error);
   }
 };

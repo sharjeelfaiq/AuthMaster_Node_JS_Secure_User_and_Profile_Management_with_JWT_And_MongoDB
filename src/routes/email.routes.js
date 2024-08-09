@@ -7,7 +7,8 @@ import {
 
 const router = express.Router();
 
-router.get("/verify-email", verifyUserEmail);
-router.post("/resend-verification", authMiddleware, resendEmailVerification);
+router
+  .get("/verify-email", verifyUserEmail)
+  .post("/resend-verification", authMiddleware, resendEmailVerification);
 
 export default router;

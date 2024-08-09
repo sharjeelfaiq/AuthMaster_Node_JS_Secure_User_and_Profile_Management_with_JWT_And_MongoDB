@@ -9,8 +9,9 @@ import { registerSchema, loginSchema } from "../validations/auth.validation.js";
 
 const router = express.Router();
 
-router.post("/register", validateMiddlware(registerSchema), registerUser);
-router.post("/login", validateMiddlware(loginSchema), loginUser);
-router.post("/logout", logoutUser);
+router
+  .post("/register", validateMiddlware(registerSchema), registerUser)
+  .post("/login", validateMiddlware(loginSchema), loginUser)
+  .post("/logout", logoutUser);
 
 export default router;

@@ -1,5 +1,5 @@
 {
-  "name": "complete_node_auth_with_jwt_csrf_rate_limiting_mongo_express_session_middleware_logger_dotenv_and_more",
+  "name": "unlocked_web_backend",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -19,7 +19,9 @@
     "cors": "^2.8.5",
     "csurf": "^1.11.0",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
+    "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^7.3.1",
     "express-session": "^1.18.0",
     "helmet": "^7.1.0",
@@ -29,7 +31,8 @@
     "mongoose": "^8.5.1",
     "multer": "1.4.5-lts.1",
     "nodemailer": "^6.9.14",
-    "winston": "^3.13.1"
+    "winston": "^3.13.1",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",

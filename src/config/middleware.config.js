@@ -5,8 +5,18 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import rateLimit from "express-rate-limit";
-// eslint-disable-next-line no-unused-vars
-import colors from "colors";
+import dotenv from "dotenv";
+import ExpressMongoSanitize from "express-mongo-sanitize";
+import xss from "xss-clean";
+
+dotenv.config();
+
+// eslint-disable-next-line no-undef
+const { SESSION_SECRET } = process.env;
+
+if (!SESSION_SECRET) {
+  throw new Error("SESSION_SECRET environment variable is not defined");
+}
 
 const configMiddleware = (app) => {
   const limiter = rateLimit({
@@ -15,23 +25,27 @@ const configMiddleware = (app) => {
     message: "Too many requests from this IP, please try again later.",
   });
 
-  // eslint-disable-next-line no-undef
-  const { SESSION_SECRET } = process.env;
-
   const sessionConfig = {
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // Set secure: true in production with HTTPS
+    cookie: {
+      // secure: true,
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    },
   };
 
   app.use(limiter);
   app.use(cors());
   app.use(helmet());
   app.use(cookieParser());
+  app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   app.use(morgan("dev"));
   app.use(session(sessionConfig));
+  app.use(ExpressMongoSanitize());
+  app.use(xss());
 };
 
 export default configMiddleware;

@@ -1,4 +1,5 @@
 import { logger } from "./utils/utils.js";
+import colors from "colors";
 
 // eslint-disable-next-line no-undef
 const { PORT } = process.env;

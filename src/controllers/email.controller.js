@@ -2,26 +2,24 @@ import {
   sendVerificationEmail,
   verifyEmail,
 } from "../services/email.service.js";
-import { handleControllerError } from "../utils/utils.js";
+import { handleError } from "../utils/utils.js";
 
 export const verifyUserEmail = async (req, res, next) => {
   const { token } = req.query;
-
   try {
-    await verifyEmail(token);
-    res.status(200).json({ message: "Email verified successfully" });
+    const response = await verifyEmail(token);
+    res.status(200).send(response);
   } catch (error) {
-    next(handleControllerError("Failed to verify email", error));
+    next(handleError("Failed to verify email", error));
   }
 };
 
 export const resendEmailVerification = async (req, res, next) => {
-  const { token } = req.query;
-
+  const { auth_token: token } = req.headers;
   try {
     await sendVerificationEmail(token);
-    res.status(200).send("Verification email sent successfully");
+    res.send("Verification email sent successfully");
   } catch (error) {
-    next(handleControllerError("Failed to resend verification email", error));
+    next(handleError("Failed to resend verification email", error));
   }
 };

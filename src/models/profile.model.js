@@ -62,6 +62,22 @@ const ProfileSchema = new mongoose.Schema(
       trim: true,
       match: [/^\d{7,10}$/, "Phone number must be between 7 and 10 digits"],
     },
+    experience: {
+      type: String,
+      required: true,
+    },
+    specializations: {
+      type: [String],
+      required: true,
+    },
+    levels: {
+      type: [String],
+      required: true,
+    },
+    travelPreferences: {
+      type: [String],
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -2,7 +2,7 @@
 import createError from "http-errors";
 import jwt from "jsonwebtoken";
 import RevokedToken from "../models/revokedToken.model.js";
-import { handleServiceError } from "../utils/utils.js";
+import { handleError } from "../utils/utils.js";
 
 export const revokeToken = async (token, expiresIn) => {
   const expiresAt = new Date(Date.now() + expiresIn);
@@ -10,7 +10,7 @@ export const revokeToken = async (token, expiresIn) => {
   try {
     await revokedToken.save();
   } catch (error) {
-    handleServiceError("Failed to revoke token", error);
+    handleError("Failed to revoke token", error);
   }
 };
 
@@ -19,7 +19,7 @@ export const isTokenRevoked = async (token) => {
     const revokedToken = await RevokedToken.findOne({ token });
     return revokedToken !== null && revokedToken.expiresAt > new Date();
   } catch (error) {
-    handleServiceError("Failed to check token revocation", error);
+    handleError("Failed to check token revocation", error);
   }
 };
 
@@ -37,11 +37,11 @@ export const verifyToken = async (token) => {
     return decoded;
   } catch (error) {
     if (error.name === "TokenExpiredError") {
-      handleServiceError("Token expired", error);
+      handleError("Token expired", error);
     } else if (error.name === "JsonWebTokenError") {
-      handleServiceError("Token invalid", error);
+      handleError("Token invalid", error);
     } else {
-      handleServiceError("Failed to verify token", error);
+      handleError("Failed to verify token", error);
     }
   }
 };
@@ -62,7 +62,7 @@ export const generateAuthToken = (user) => {
     );
     return token;
   } catch (error) {
-    handleServiceError("Failed to generate auth token", error);
+    handleError("Failed to generate auth token", error);
   }
 };
 
@@ -73,7 +73,7 @@ export const generateVerificationToken = (userId) => {
     const { JWT_SECRET } = process.env;
     return jwt.sign({ userId }, JWT_SECRET, { expiresIn: "5m" });
   } catch (error) {
-    handleServiceError("Failed to generate verification token", error);
+    handleError("Failed to generate verification token", error);
   }
 };
 
@@ -82,7 +82,7 @@ const cleanupExpiredTokens = async () => {
   try {
     await RevokedToken.deleteMany({ expiresAt: { $lte: cutoffDate } });
   } catch (error) {
-    handleServiceError("Failed to cleanup expired tokens", error);
+    handleError("Failed to cleanup expired tokens", error);
   }
 };
 

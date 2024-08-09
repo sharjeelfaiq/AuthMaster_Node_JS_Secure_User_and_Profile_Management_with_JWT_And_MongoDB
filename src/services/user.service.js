@@ -3,7 +3,7 @@ import User from "../models/user.model.js";
 import Qualification from "../models/qualification.model.js";
 import Profile from "../models/profile.model.js";
 import UserDetails from "../models/userDetails.model.js";
-import { handleServiceError } from "../utils/utils.js";
+import { handleError } from "../utils/utils.js";
 
 export const getAll = async () => {
   try {
@@ -11,7 +11,7 @@ export const getAll = async () => {
     if (!users.length) throw createError(404, "No users found");
     return users;
   } catch (error) {
-    handleServiceError("Failed to fetch users", error);
+    handleError("Failed to fetch users", error);
   }
 };
 
@@ -21,7 +21,7 @@ export const getById = async (userId) => {
     if (!user) throw createError(404, `User with ID ${userId} does not exist`);
     return user;
   } catch (error) {
-    handleServiceError(`Failed to fetch user`, error);
+    handleError(`Failed to fetch user`, error);
   }
 };
 
@@ -33,7 +33,7 @@ export const update = async (userId, updateData) => {
     if (!user) throw createError(404, `User with ID ${userId} does not exist`);
     return user;
   } catch (error) {
-    handleServiceError(`Failed to update user`, error);
+    handleError(`Failed to update user`, error);
   }
 };
 
@@ -50,6 +50,6 @@ export const remove = async (userId) => {
 
     return "User deleted successfully";
   } catch (error) {
-    handleServiceError(`Failed to delete user`, error);
+    handleError(`Failed to delete user`, error);
   }
 };

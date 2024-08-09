@@ -1,9 +1,9 @@
 import { getDetails } from "../services/userDetails.service.js";
 import { verifyToken } from "../services/token.service.js";
-import { handleControllerError } from "../utils/utils.js";
+import { handleError } from "../utils/utils.js";
 
 export const getUserDetails = async (req, res, next) => {
-  const token = req.headers.auth_token;
+  const { auth_token: token } = req.headers;
   const csrfToken = req.csrfToken();
 
   try {
@@ -12,6 +12,6 @@ export const getUserDetails = async (req, res, next) => {
     const userDetails = await getDetails(userId);
     res.status(200).json({ userDetails, csrfToken });
   } catch (error) {
-    next(handleControllerError("Failed to fetch the user details", error));
+    next(handleError("Failed to fetch the user details", error));
   }
 };

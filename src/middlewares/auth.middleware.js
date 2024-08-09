@@ -3,7 +3,7 @@ import { verifyToken } from "../services/token.service.js";
 import { logger } from "../utils/utils.js";
 
 const authMiddleware = async (req, res, next) => {
-  const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
+  const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     logger.error("Authorization token not found");

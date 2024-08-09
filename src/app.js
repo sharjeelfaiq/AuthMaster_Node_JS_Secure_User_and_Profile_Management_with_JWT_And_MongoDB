@@ -7,12 +7,12 @@ import serverListener from "./server.js";
 
 const app = express();
 
-configMiddleware(app); // Configure middleware
-configDB(); // Connect to database
-configRoutes(app); // Set up routes
+configMiddleware(app);
+configDB();
+configRoutes(app);
 
 app.use(errorHandler)
 
-serverListener(app); // Start the server
+serverListener(app);
 
 export default app;

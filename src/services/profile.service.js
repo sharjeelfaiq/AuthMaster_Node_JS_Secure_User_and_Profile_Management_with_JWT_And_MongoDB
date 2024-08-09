@@ -1,7 +1,7 @@
 import createError from "http-errors";
 import User from "../models/user.model.js";
 import Profile from "../models/profile.model.js";
-import { handleServiceError } from "../utils/utils.js";
+import { handleError } from "../utils/utils.js";
 import UserDetails from "../models/userDetails.model.js";
 
 export const getById = async (userId) => {
@@ -10,7 +10,7 @@ export const getById = async (userId) => {
     if (!profile) throw createError(404, "Profile not found");
     return profile;
   } catch (error) {
-    handleServiceError("Failed to fetch profile", error);
+    handleError("Failed to fetch profile", error);
   }
 };
 
@@ -23,7 +23,6 @@ export const createOrUpate = async (
   try {
     const user = await User.findById(userId);
     if (!user) throw createError(404, "User not found");
-    if (user.role !== "user") throw createError(400, "User is not a user");
 
     profileData.profilePicture = profilePicturePath && profilePicturePath;
     profileData.idImage = idImagePath && idImagePath;
@@ -41,6 +40,6 @@ export const createOrUpate = async (
 
     return profile;
   } catch (error) {
-    handleServiceError("Failed to create or update profile", error);
+    handleError("Failed to create or update profile", error);
   }
 };

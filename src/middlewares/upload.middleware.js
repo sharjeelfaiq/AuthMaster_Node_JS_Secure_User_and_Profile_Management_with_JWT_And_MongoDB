@@ -9,6 +9,8 @@ const storage = multer.diskStorage({
       dest += "profilePictures/";
     } else if (file.fieldname === "idImage") {
       dest += "idImages/";
+    } else if (file.fieldname === "certificateImage") {
+      dest += "certificates/";
     }
     cb(null, dest);
   },
@@ -37,7 +39,7 @@ function checkFileType(file, cb) {
 }
 
 const upload = multer({
-  storage: storage,
+  storage,
   limits: { fileSize: 1000000 }, // limit file size to 1MB
   fileFilter: function (_, file, cb) {
     checkFileType(file, cb);
@@ -45,6 +47,7 @@ const upload = multer({
 }).fields([
   { name: "profilePicture", maxCount: 1 },
   { name: "idImage", maxCount: 1 },
+  { name: "certificateImage", maxCount: 1 },
 ]);
 
 export default upload;

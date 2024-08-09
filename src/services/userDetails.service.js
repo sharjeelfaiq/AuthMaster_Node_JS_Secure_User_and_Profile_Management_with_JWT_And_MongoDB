@@ -1,20 +1,19 @@
 import createError from "http-errors";
-import { handleServiceError } from "../utils/utils.js";
+import { handleError } from "../utils/utils.js";
 import UserDetails from "../models/userDetails.model.js";
 
 export const getDetails = async (userId) => {
   try {
     const userDetails = await UserDetails.findOne({ user: userId })
       .populate("user")
-      .populate("profile")
-      .populate("qualifications");
+      .populate("profile");
 
     if (!userDetails) {
-      throw createError(404, "user details not found");
+      throw createError(404, "User details not found");
     }
 
     return userDetails;
   } catch (error) {
-    handleServiceError("Failed to fetch user details", error);
+    handleError("Failed to fetch user details", error);
   }
 };

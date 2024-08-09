@@ -11,6 +11,12 @@ const UserDetailsSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "profiles",
     },
+    qualifications: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "qualifications",
+      },
+    ],
   },
   { timestamps: true }
 );
